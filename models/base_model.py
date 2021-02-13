@@ -11,7 +11,7 @@ from datetime import datetime
 class BaseModel():
     """
     BaseModel class defines all common atributes/methods for other
-    classes
+    classes.
     """
 
     def __init__(self, id=None, created_at=None, updated_at=None):
