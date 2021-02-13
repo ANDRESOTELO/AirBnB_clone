@@ -23,16 +23,13 @@ class BaseModel():
         # and each value like a value of this attribute name
         if kwargs:
             for key in kwargs:
-                if key == "created_at":
+                if key == "created_at" or key == "updated_at":
                     obj_format = "%Y-%m-%dT%H:%M:%S.%f"
                     # strptime creates a datetime object from a string
                     # kwargs[key] will be an object and will be set in the key
                     kwargs[key] = datetime.strptime(kwargs[key], obj_format)
                     # setattr sets the value of the specified attribute
                     setattr(self, key, kwargs[key])
-                if key == "updated_at":
-                    obj_format = "%Y-%m-%dT%H:%M:%S.%f"
-                    kwargs[key] = datetime.strptime(kwargs[key], obj_format)
                 if key != "__class__":
                     setattr(self, key, kwargs[key])
         # if kwargs is empty create instance like a new instance
