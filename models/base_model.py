@@ -14,16 +14,35 @@ class BaseModel():
     classes.
     """
 
-    def __init__(self, id=None, created_at=None, updated_at=None):
+    def __init__(self, *args, **kwargs):
         """
         Class constructor that have inits class attributes
         """
 
-        # uuid4 create random UUID
-        self.id = str(uuid4())
-        # datetime.now() assign the actual date/time values
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        # if kwargs is not empty assign key like attribute name
+        # and each value like a value of this attribute name
+        if kwargs:
+            for key in kwargs:
+                if key == "created_at":
+                    obj_format = "%Y-%m-%dT%H:%M:%S.%f"
+                    # strptime creates a datetime object from a string
+                    # kwargs[key] will be an object and will be set in the key
+                    kwargs[key] = datetime.strptime(kwargs[key], obj_format)
+                    # setattr sets the value of the specified attribute
+                    setattr(self, key, kwargs[key])
+                if key == "updated_at":
+                    obj_format = "%Y-%m-%dT%H:%M:%S.%f"
+                    kwargs[key] = datetime.strptime(kwargs[key], obj_format)
+                if key != "__class__":
+                    setattr(self, key, kwargs[key])
+        # if kwargs is empty create instance like a new instance
+        # with new id and new created and updated variables
+        else:
+            # uuid4 create random UUID
+            self.id = str(uuid4())
+            # datetime.now() assign the actual date/time values
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self):
         """
