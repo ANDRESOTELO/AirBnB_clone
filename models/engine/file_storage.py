@@ -4,8 +4,7 @@ FileStorage serializes instances to a JSON file and deserializes JSON file to in
 """
 
 import json
-from models.base_model import BaseModel
-
+import models
 
 class FileStorage:
     """
@@ -29,7 +28,7 @@ class FileStorage:
         key <obj class name>.id
         """
         key = obj.__class__.__name__ + "." + obj.id
-        FileStorage.__objects["key"] = obj.to_dict()
+        FileStorage.__objects[key] = obj.to_dict()
 
     def save(self):
         """

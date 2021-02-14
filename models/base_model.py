@@ -4,12 +4,12 @@ This is the base model module that defines all common attributes
 and methods for the other classes
 """
 
+import models
 from uuid import uuid4
 from datetime import datetime
-from models import storage
 
 
-class BaseModel():
+class BaseModel:
     """
     BaseModel class defines all common atributes/methods for other
     classes.
@@ -41,6 +41,7 @@ class BaseModel():
             # datetime.now() assign the actual date/time values
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            models.storage.new(self)
 
     def __str__(self):
         """
@@ -56,6 +57,7 @@ class BaseModel():
         current datetime
         """
         self.updated_at = datetime.now()
+        models.storage.save()
         return (self.updated_at)
 
     def to_dict(self):
