@@ -12,7 +12,7 @@ class FileStorage:
     and deserializes JSON file to instances
     """
 
-    __file_path = ""
+    __file_path = "file.json"
     __objects = {}
 
     def all(self):
@@ -34,7 +34,6 @@ class FileStorage:
         """
         Public instance method that serializes __objects to the JSON file
         """
-        FileStorage.__file_path = "file.json"
         json_string = json.dumps(FileStorage.__objects)
         with open(FileStorage.__file_path, 'w') as f:
             f.write(json_string)
