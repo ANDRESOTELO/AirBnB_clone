@@ -26,6 +26,9 @@ class HBNBCommand(cmd.Cmd):
         """Do not execute anything with an empty line + ENTER """
         return
 
+    def _create(self, command)
+        """Command to create a new instance
+        """
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
