@@ -5,6 +5,7 @@ FileStorage serializes instances to a JSON file and deserializes JSON file to in
 
 import json
 import models
+from models.base_model import BaseModel
 
 class FileStorage:
     """
@@ -27,24 +28,30 @@ class FileStorage:
         Public instance method that sets in __objects the obj with the
         key <obj class name>.id
         """
-        key = obj.__class__.__name__ + "." + obj.id
-        FileStorage.__objects[key] = obj.to_dict()
+        key = "{}.{}".format(obj.__class__.__name__ , obj.id)
+        FileStorage.__objects[key] = obj
 
     def save(self):
         """
         Public instance method that serializes __objects to the JSON file
         """
-        json_string = json.dumps(FileStorage.__objects)
-        with open(FileStorage.__file_path, 'w') as f:
-            f.write(json_string)
+        filename = FileStorage.__file_path
+        dictionary = {}
+        for key, value in FileStorage.__objects.items():
+            val = value.to_dict()
+            dictionary[key] = val
+        with open(filename, 'w') as json_file:
+            json.dump(dictionary, json_file)
 
     def reload(self):
         """
         Public instance method deserializes the JSON file to __objects
         """
+        filename = FileStorage.__file_path
         try:
-            with open(FileStorage.__file_path, 'r') as f:
-                read_file = f.read()
-                FileStorage.__objects = json.loads(read_file)
-        except:
+            with open(filename, 'r') as f:
+                read_file = json.load(f)
+                for key, value in read_file.items():
+                    FileStorage.__objects[key] = eval(value["__class__"])(**value)
+        except Exception:
             pass
