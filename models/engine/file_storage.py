@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 """
-FileStorage serializes instances to a JSON file and deserializes JSON file to instances
+FileStorage serializes instances to a JSON file and deserializes
+JSON file to instances
 """
 
 import json
 import models
 from models.base_model import BaseModel
+
 
 class FileStorage:
     """
@@ -28,7 +30,7 @@ class FileStorage:
         Public instance method that sets in __objects the obj with the
         key <obj class name>.id
         """
-        key = "{}.{}".format(obj.__class__.__name__ , obj.id)
+        key = "{}.{}".format(obj.__class__.__name__, obj.id)
         FileStorage.__objects[key] = obj
 
     def save(self):
@@ -51,7 +53,7 @@ class FileStorage:
         try:
             with open(filename, 'r') as f:
                 read_file = json.load(f)
-                for key, value in read_file.items():
-                    FileStorage.__objects[key] = eval(value["__class__"])(**value)
+                for key, val in read_file.items():
+                    FileStorage.__objects[key] = eval(val["__class__"])(**val)
         except Exception:
             pass
