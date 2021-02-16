@@ -93,26 +93,62 @@ the id of the instance will be printed
             print("** class doesn't exist **")
 
     def do_all(self, line):
-        """Prints all string representation of all instances based or not on the class name
+        """Prints all string representation instances
+if you type "all" without arguments print all instances
+if you type "all" + class name, print all instances of the class
         """
         args = line.split()
         data = storage.all()
-        new_list = []
+        list_instances = []
 
         if len(line) < 1:
             for key, value in data.items():
-                new_list.append(str(value))
-            print(new_list)
+                list_instances.append(str(value))
+            print(list_instances)
+
         elif args[0] in class_name:
             for key, value in data.items():
                 key_split = key.split(".")
                 if key_split[0] == args[0]:
-                    new_list.append(str(value))
-            print(new_list)
+                    list_instances.append(str(value))
+            print(list_instances)
         else:
             print("** class doesn't exist **")
             
+    def do_update(self, line):
+        """Update an instance based on the class name and id by adding
+or updating attribute
+        """
+        args = line.split()
+        data = storage.all()
 
+        if len(line) < 1:
+            print("** class name missing **")
+        elif args[0] in class_name:
+            if len(args) == 2:
+                key = args[0] + "." + args[1]
+                if key in data:
+                    print("** attribute name missing **")
+                else:
+                    print("** no instance found **")
+            elif len(args) == 3:
+                key = args[0] + "." + args[1]
+                if key in data:
+                    print("** value missing **")
+                else:
+                    print("** no instance found **")
+            elif len(args) == 4:
+                key = args[0] + "." + args[1]
+                if key in data:
+                    for key, value in data.items():
+                        a = value.to_dict()
+                        a[args[2]] = args[3]
+                        storage.save()
+                else:
+                    print("** instance id missing **")
+        else:
+            print("** class doesn't exist **")
+            
 
 if __name__ == "__main__":
     """
