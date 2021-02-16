@@ -8,6 +8,7 @@ import models
 import json
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
+from models import storage
 import cmd
 
 
@@ -46,12 +47,30 @@ the id of the instance will be printed
         else:
             print("** class doesn't exist **")
 
-    def __str__(self):
-        """Method to override the __str__ method and return
-specific text format
+    def do_show(self, line):
+        """string representation of an instance
         """
-        return "{} {}".format(obj.__class__.__name__, obj.id)
-
+        args = line.split()
+        data = storage.all()
+        # if passing show as argumnen but no more arguments
+        if len(line) < 1:
+            print("** class name missing **")
+        # if passing 2 arguments
+        elif len(args) >= 1:
+            for key, value in data.items():
+                key_split = key.split(".")
+                if len(args) == 1:
+                    if args[0] == key_split[0]:
+                        print("** instance id missing **")
+                    else:
+                        print("** class doesn't exist **")
+                else:
+                    if args[0] == key_split[0] and args[1] == key_split[1]:
+                        print(value)
+                    elif args[0] != key_split[0]:
+                        print("** class doesn't exist **")
+                    else:
+                        print("** no instance found **")
 
 if __name__ == "__main__":
     """
