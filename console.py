@@ -10,14 +10,18 @@ from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 from models import storage
 import cmd
+from shlex import split
+
 
 class_name = {"BaseModel": BaseModel}
+not_to_update = ["updated_at", "created_at", "id"]
+
 
 class HBNBCommand(cmd.Cmd):
     """
     Commnad interpreter class definition
     """
-    #Remember to delet this line before the last commit
+    # Remember to delet this line before the last commit
     intro = "Welcome to Airbnb console! Type ? or help to list commands"
     prompt = "(hbnb)"
 
@@ -40,7 +44,7 @@ class HBNBCommand(cmd.Cmd):
         """Create a new instance of BaseModel. If instance was created,
 the id of the instance will be printed
         """
-        args = line.split()
+        args = split(line)
 
         if len(line) < 1:
             print("** class name missing **")
@@ -52,9 +56,10 @@ the id of the instance will be printed
             print("** class doesn't exist **")
 
     def do_show(self, line):
-        """Prints the string representation of an instance based on the class name and id
+        """Prints the string representation of an instance based on
+the class name and id
         """
-        args = line.split()
+        args = split(line)
         data = storage.all()
         # if passing only 1 argument
         if len(line) < 1:
@@ -74,7 +79,7 @@ the id of the instance will be printed
     def do_destroy(self, line):
         """Deletes an instance based on the class name and id
         """
-        args = line.split()
+        args = split(line)
         data = storage.all()
         # if passing only 1 argument
         if len(line) < 1:
@@ -97,7 +102,7 @@ the id of the instance will be printed
 if you type "all" without arguments print all instances
 if you type "all" + class name, print all instances of the class
         """
-        args = line.split()
+        args = split(line)
         data = storage.all()
         list_instances = []
 
@@ -114,12 +119,12 @@ if you type "all" + class name, print all instances of the class
             print(list_instances)
         else:
             print("** class doesn't exist **")
-            
+
     def do_update(self, line):
         """Update an instance based on the class name and id by adding
 or updating attribute
         """
-        args = line.split()
+        args = split(line)
         data = storage.all()
 
         if len(line) < 1:
@@ -137,18 +142,21 @@ or updating attribute
                     print("** value missing **")
                 else:
                     print("** no instance found **")
-            elif len(args) == 4:
+            elif len(args) >= 4:
                 key = args[0] + "." + args[1]
                 if key in data:
                     for key, value in data.items():
-                        a = value.to_dict()
-                        a[args[2]] = args[3]
-                        storage.save()
-                else:
-                    print("** instance id missing **")
+                        if args[2] not in not_to_update:
+                            setattr(value, args[2], args[3])
+                            storage.save()
+                        else:
+                            pass
+            else:
+                print("** instance id missing **")
         else:
             print("** class doesn't exist **")
-            
+
+# Entry Point
 
 if __name__ == "__main__":
     """
