@@ -80,17 +80,25 @@ class TestBaseModel(unittest.TestCase):
         my_new_model_id = my_new_model.id
         self.assertNotEqual(my_model_id, my_new_model_id)
 
-    def test_date(self):
+    def test_attributes(self):
         """
-        Doc
+        Test that checks correct set value
         """
         my_model = BaseModel()
         my_model.name = "Holberton"
-        my_model.save()
-        my_model_json = my_model.to_dict()
-        for key in my_model_json.keys():
-            if key == "name":
-                self.assertEqual(key, "name")
+        my_model.number = 89
+        self.assertEqual(my_model.name, "Holberton")
+        self.assertEqual(my_model.number, 89)
+
+    def test_str(self):
+        """
+        Test that __str__ have correct output
+        """
+        my_model = BaseModel()
+        str_format = "[BaseModel] ({}) {}".format(my_model.id,
+                                                  my_model.__dict__)
+        self.assertEqual(str_format, str(my_model))
+
 
 if __name__ == "__main__":
     """
