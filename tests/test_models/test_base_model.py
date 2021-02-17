@@ -3,11 +3,11 @@
 Unittest for base_model.py module
 """
 
+import models
+from models.base_model import BaseModel
 import unittest
-import json
 import pep8
 import inspect
-import models
 from models.base_model import BaseModel, __doc__
 from datetime import datetime
 
@@ -99,9 +99,21 @@ class TestBaseModel(unittest.TestCase):
                                                   my_model.__dict__)
         self.assertEqual(str_format, str(my_model))
 
+    def test_instance(self):
+        """
+        Test correct instance
+        """
+        my_model = BaseModel()
+        my_model.name = "Holberton"
+        my_model.number = 89
+        self.assertEqual(my_model.__class__.__name__, "BaseModel")
+        self.assertEqual(type(my_model), BaseModel)
+        self.assertEqual(my_model.name, "Holberton")
+        self.assertEqual(my_model.number, 89)
+
 
 if __name__ == "__main__":
     """
     Entry point
     """
-    TestBaseModel()
+    unittest.main()
