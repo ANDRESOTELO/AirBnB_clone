@@ -3,6 +3,7 @@
 Unittest for base_model.py module
 """
 
+from os import remove as delete
 import models
 from models.base_model import BaseModel
 import unittest
@@ -16,6 +17,15 @@ class TestBaseModel(unittest.TestCase):
     """
     Define TestBaseModel class
     """
+    def setUp(self):
+        """
+        Method to init test and remove file.json
+        """
+        try:
+            delete("file.json")
+        except:
+            pass
+
     def test_pep8_BaseModel(self):
         """
         Test that checks pep8 implementation
@@ -110,6 +120,14 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(type(my_model), BaseModel)
         self.assertEqual(my_model.name, "Holberton")
         self.assertEqual(my_model.number, 89)
+
+    def test_check_datetime(self):
+        """
+        doce
+        """
+        my_model = BaseModel()
+        datetime_class = "<class 'datetime.datetime'>"
+        self.assertTrue(type(my_model.created_at), datetime_class)
 
 
 if __name__ == "__main__":
