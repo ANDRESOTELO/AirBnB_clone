@@ -20,10 +20,12 @@ class TestFileStorage(unittest.TestCase):
     """
     Define TestFileStorage class
     """
+
     def setUp(self):
         """
         Method to init test and remove file.json
         """
+        FileStorage._FileStorage__objects = {}
         try:
             delete("file.json")
         except:
@@ -74,17 +76,16 @@ class TestFileStorage(unittest.TestCase):
         """
         Test instance creation
         """
-        my_model = BaseModel()
-        all_objs = storage.all()
-        key = "{}.{}".format(my_model.__class__.__name__, my_model.id)
-        for obj_id, obj_value in all_objs.items():
-            self.assertEqual(obj_id, key)
-            self.assertEqual(obj_value, my_model)
+        mymodel = BaseModel()
+        all_obj = storage.all()
+        key = "{}.{}".format(mymodel.__class__.__name__, mymodel.id)
+        self.assertEqual(all_obj[key], mymodel)
 
     def tearDown(self):
         """
         Method to reset test and remove file.json
         """
+        FileStorage._FileStorage__objects = {}
         try:
             delete("file.json")
         except:
