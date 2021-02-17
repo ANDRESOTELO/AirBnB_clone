@@ -150,8 +150,11 @@ class TestBaseModel(unittest.TestCase):
         my_model_json = my_model.to_dict()
         self.assertEqual("__class__" in my_model_json, True)
 
-if __name__ == "__main__":
-    """
-    Entry point
-    """
-    unittest.main()
+    def tearDown(self):
+        """
+        Method to reset test and remove file.json
+        """
+        try:
+            delete("file.json")
+        except:
+            pass
