@@ -81,6 +81,16 @@ class TestFileStorage(unittest.TestCase):
         key = "{}.{}".format(mymodel.__class__.__name__, mymodel.id)
         self.assertEqual(all_obj[key], mymodel)
 
+    def test_new(self):
+        """ Testing the new method """
+        ins = BaseModel()
+        ins.save()
+        all_objs = storage.all()
+
+        obj_key = ins.__class__.__name__ + '.' + ins.id
+        self.assertEqual(all_objs[obj_key], ins)
+        self.assertEqual(obj_key in all_objs, True)
+
     def tearDown(self):
         """
         Method to reset test and remove file.json
