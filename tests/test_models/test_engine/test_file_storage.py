@@ -103,6 +103,16 @@ class TestFileStorage(unittest.TestCase):
         here = os.path.exists('file.json')
         self.assertEqual(here, True)
 
+    def test_file_empty(self):
+        """
+        Test for file.json not empty
+        """
+        my_model = BaseModel()
+        my_model.save()
+        file_path = 'file.json'
+        file_size = os.stat(file_path).st_size
+        self.assertNotEqual(file_size, 0)
+
     def tearDown(self):
         """
         Method to reset test and remove file.json
