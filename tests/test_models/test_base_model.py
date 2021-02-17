@@ -128,6 +128,8 @@ class TestBaseModel(unittest.TestCase):
         my_model = BaseModel()
         datetime_class = "<class 'datetime.datetime'>"
         self.assertTrue(type(my_model.created_at), datetime_class)
+        self.assertTrue(type(my_model.updated_at), datetime_class)
+        self.assertTrue(type(my_model.id), "<class 'str'>")
 
 
 if __name__ == "__main__":
