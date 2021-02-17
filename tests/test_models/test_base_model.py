@@ -85,8 +85,12 @@ class TestBaseModel(unittest.TestCase):
         Doc
         """
         my_model = BaseModel()
-        id_uuid = my_model.id
-        self.assertTrue(type(id_uuid), "<class 'uuid.UUID'>")
+        my_model.name = "Holberton"
+        my_model.save()
+        my_model_json = my_model.to_dict()
+        for key in my_model_json.keys():
+            if key == "name":
+                self.assertEqual(key, "name")
 
 if __name__ == "__main__":
     """
