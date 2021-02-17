@@ -5,6 +5,7 @@ Unittest for base_model.py module
 
 from os import remove as delete
 import models
+import uuid
 from models.base_model import BaseModel
 import unittest
 import pep8
@@ -131,6 +132,13 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(type(my_model.updated_at), datetime_class)
         self.assertTrue(type(my_model.id), "<class 'str'>")
 
+    def test_version_uuid(self):
+        """
+        Test that checks for the uuid version
+        """
+        my_model = BaseModel()
+        version_uuid = uuid.UUID(my_model.id).version
+        self.assertEqual(version_uuid, 4)
 
 if __name__ == "__main__":
     """
