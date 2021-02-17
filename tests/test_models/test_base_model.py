@@ -1,0 +1,86 @@
+#!/usr/bin/python3
+"""
+Unittest for base_model.py module
+"""
+
+import unittest
+import json
+import pep8
+import inspect
+import models
+from models.base_model import BaseModel, __doc__
+
+
+class TestBaseModel(unittest.TestCase):
+    """
+    Define TestBaseModel class
+    """
+    def test_pep8_BaseModel(self):
+        """
+        Test that checks pep8 implementation
+        """
+        style = pep8.StyleGuide(quiet=True)
+        check = style.check_files(['models/base_model.py'])
+        self.assertEqual(check.total_errors, 0,
+                         "PEP8 style errors: {:d}".format(check.total_errors))
+
+    def test_pep8_test_BaseModel(self):
+        """
+        Test that checks pep8 implementation in test_base file
+        """
+        style = pep8.StyleGuide(quiet=True)
+        check = style.check_files(['tests/test_models/test_base_model.py'])
+        self.assertEqual(check.total_errors, 0,
+                         "PEP8 style errors: {:d}".format(check.total_errors))
+
+    def test_doc_string(self):
+        """
+        Test docstring
+        """
+        self.assertIsNotNone(BaseModel.__doc__)
+
+    def test_create_instance(self):
+        """
+        Test that checks correct creation of instance
+        checking correct id instance and specific id too.
+        """
+        my_model = BaseModel()
+        self.assertIsInstance(my_model, BaseModel,
+                              "Object isn´t an instance of class")
+
+    def test_model_json(self):
+        """
+        Test that checks if method to_dict creates a dictionary
+        """
+        my_model = BaseModel()
+        my_model.name = "Holberton"
+        my_model.save()
+        my_model_json = my_model.to_dict()
+        self.assertTrue(type(my_model_json), "<class 'dict'>")
+
+    def test_save_method(self):
+        """
+        Test that save method updates the updated_at variable
+        """
+        my_model = BaseModel()
+        up1 = my_model.updated_at
+        my_model.name = "Holberton"
+        my_model.save()
+        up2 = my_model.updated_at
+        self.assertNotEqual(up1, up2)
+
+    def test_uuid(self):
+        """
+        Test that checks if two instances have different id
+        """
+        my_model = BaseModel()
+        my_model_id = my_model.id
+        my_new_model = BaseModel()
+        my_new_model_id = my_new_model.id
+        self.assertNotEqual(my_model_id, my_new_model_id)
+
+if __name__ == "__main__":
+    """
+    Entry point
+    """
+    TestBaseModel()
