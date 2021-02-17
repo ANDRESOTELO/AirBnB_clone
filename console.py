@@ -22,7 +22,6 @@ class HBNBCommand(cmd.Cmd):
     """
     Commnad interpreter class definition
     """
-    # Remember to delet this line before the last commit
     prompt = "(hbnb)"
 
     def do_quit(self, line):
