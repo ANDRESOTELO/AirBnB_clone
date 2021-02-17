@@ -7,6 +7,7 @@ JSON file to instances
 import json
 import models
 from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage:
@@ -55,5 +56,5 @@ class FileStorage:
                 read_file = json.load(f)
                 for key, val in read_file.items():
                     FileStorage.__objects[key] = eval(val["__class__"])(**val)
-        except Exception:
+        except:
             pass
