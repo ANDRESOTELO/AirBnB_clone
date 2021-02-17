@@ -14,6 +14,7 @@ import pep8
 import inspect
 from datetime import datetime
 from models.engine.file_storage import FileStorage
+import os
 
 
 class TestFileStorage(unittest.TestCase):
@@ -82,7 +83,9 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(all_obj[key], mymodel)
 
     def test_new(self):
-        """ Testing the new method """
+        """
+        Testing the new method
+        """
         ins = BaseModel()
         ins.save()
         all_objs = storage.all()
@@ -90,6 +93,15 @@ class TestFileStorage(unittest.TestCase):
         obj_key = ins.__class__.__name__ + '.' + ins.id
         self.assertEqual(all_objs[obj_key], ins)
         self.assertEqual(obj_key in all_objs, True)
+
+    def test_file_json(self):
+        """
+        Test for check file.json
+        """
+        my_model = BaseModel()
+        my_model.save()
+        here = os.path.exists('file.json')
+        self.assertEqual(here, True)
 
     def tearDown(self):
         """
