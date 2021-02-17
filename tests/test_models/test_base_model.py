@@ -9,6 +9,7 @@ import pep8
 import inspect
 import models
 from models.base_model import BaseModel, __doc__
+from datetime import datetime
 
 
 class TestBaseModel(unittest.TestCase):
@@ -78,6 +79,14 @@ class TestBaseModel(unittest.TestCase):
         my_new_model = BaseModel()
         my_new_model_id = my_new_model.id
         self.assertNotEqual(my_model_id, my_new_model_id)
+
+    def test_date(self):
+        """
+        Doc
+        """
+        my_model = BaseModel()
+        id_uuid = my_model.id
+        self.assertTrue(type(id_uuid), "<class 'uuid.UUID'>")
 
 if __name__ == "__main__":
     """
