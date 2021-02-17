@@ -140,6 +140,16 @@ class TestBaseModel(unittest.TestCase):
         version_uuid = uuid.UUID(my_model.id).version
         self.assertEqual(version_uuid, 4)
 
+    def test_class_in_dict(self):
+        """
+        Test that checks if __class__ is in model to json
+        """
+        my_model = BaseModel()
+        my_model.name = "Holberton"
+        my_model.save()
+        my_model_json = my_model.to_dict()
+        self.assertEqual("__class__" in my_model_json, True)
+
 if __name__ == "__main__":
     """
     Entry point
