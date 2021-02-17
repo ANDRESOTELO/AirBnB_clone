@@ -8,12 +8,13 @@ import models
 import json
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
+from models.user import User
 from models import storage
 import cmd
 from shlex import split
 
 
-class_name = {"BaseModel": BaseModel}
+class_name = {"BaseModel": BaseModel, "User": User}
 not_to_update = ["updated_at", "created_at", "id"]
 
 
