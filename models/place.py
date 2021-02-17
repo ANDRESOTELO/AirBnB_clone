@@ -6,8 +6,9 @@ Module to create a new class
 import models
 from models.base_model import BaseModel
 
+
 class Place(BaseModel):
-    """ 
+    """
     Class Place that inherits from BaseModel
     """
     city_id = ""
