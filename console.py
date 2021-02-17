@@ -14,7 +14,14 @@ import cmd
 from shlex import split
 
 
-class_name = {"BaseModel": BaseModel, "User": User}
+class_name = {"BaseModel": BaseModel,
+              "User": User,
+              "State": State,
+              "City": City,
+              "Amenity": Amenity,
+              "Place": Place,
+              "Review": Review}
+
 not_to_update = ["updated_at", "created_at", "id"]
 
 
@@ -156,6 +163,7 @@ or updating attribute
             print("** class doesn't exist **")
 
 # Entry Point
+
 
 if __name__ == "__main__":
     """
