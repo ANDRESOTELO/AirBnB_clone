@@ -86,13 +86,15 @@ class TestFileStorage(unittest.TestCase):
         """
         Testing the new method
         """
-        ins = BaseModel()
-        ins.save()
+        my_model = BaseModel()
+        my_model.save()
         all_objs = storage.all()
 
-        obj_key = ins.__class__.__name__ + '.' + ins.id
-        self.assertEqual(all_objs[obj_key], ins)
+        obj_key = my_model.__class__.__name__ + '.' + my_model.id
+        self.assertEqual(all_objs[obj_key], my_model)
         self.assertEqual(obj_key in all_objs, True)
+        obj = {obj_key: my_model}
+        self.assertEqual(obj, all_objs)
 
     def test_file_json(self):
         """
@@ -112,6 +114,14 @@ class TestFileStorage(unittest.TestCase):
         file_path = 'file.json'
         file_size = os.stat(file_path).st_size
         self.assertNotEqual(file_size, 0)
+
+    def test_file_json(self):
+        """
+        Test fon info inside file.json
+        """
+        my_model = BaseModel()
+        my_model.save()
+        json_object = storage.all()
 
     def tearDown(self):
         """
