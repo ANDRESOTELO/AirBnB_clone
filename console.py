@@ -34,7 +34,7 @@ class HBNBCommand(cmd.Cmd):
     """
     Commnad interpreter class definition
     """
-    prompt = "(hbnb)"
+    prompt = "(hbnb) "
 
     def do_quit(self, line):
         """Exit the program writing 'quit'
@@ -166,9 +166,6 @@ or updating attribute
                 print("** instance id missing **")
         else:
             print("** class doesn't exist **")
-
-# Entry Point
-
 
 if __name__ == "__main__":
     """
