@@ -48,7 +48,7 @@ class FileStorage:
         for key, value in FileStorage.__objects.items():
             val = value.to_dict()
             dictionary[key] = val
-        with open(filename, 'w') as json_file:
+        with open(filename, 'w', encoding="utf-8") as json_file:
             json.dump(dictionary, json_file)
 
     def reload(self):
@@ -57,7 +57,7 @@ class FileStorage:
         """
         filename = FileStorage.__file_path
         try:
-            with open(filename, 'r') as f:
+            with open(filename, 'r', encoding="utf-8") as f:
                 read_file = json.load(f)
                 for key, val in read_file.items():
                     FileStorage.__objects[key] = eval(val["__class__"])(**val)
