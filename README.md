@@ -1,70 +1,100 @@
-# AirBnB_clone
-(image here)
-#  Description
+![enter image description here](https://lh3.googleusercontent.com/LdLAW3MY82GvPbUlR-o8jnablOLV0luZZqjxiYkz5eRx3ZMQkNYb8gram4QYhuFKgRsJ2ZfgvCUZvpK2I1fu1Z9p5ZD3RYBN5bAp3H-tCGsqXW0ZRq4puXTkIe1RX2yQbn6OPMWZP9bNgOIQr3ubZPX94UFLKbs9XXxvPftL0FNAyKGAuTC58T56axOlQphhM1etD13zEgJLBswt8CCADeUpr79VelvrHuP30p1--iisaIC8RSXBs9lJza8v2QGEDlv97E7riKkMg5iTWF3yO_JOEBSeD-Jx_XBF51MoN_TuCaoXBOKiNPasnNcaTu_GK0PAkHDvxRdJRrkTNYAnrd0sGHiMtsUylBncfecTvXvVZ7j5uuaQxOYA_T_N8wMpn6ZxEuRfbdT4y-wZy9C36-fcGT4oTatbNwIF_ihw6DsbKVsxBscymb-9MfscR2VJZxuXAGWlTgoBJvp1uTPBV_drTIHS8u1q0PuP-k3j10feWXjGfQgkkWIyl5dy34p_wvOww80w7DEt6UKV6qbUjkj1XHv1NX6OlXKoqT02xRp_uHBQXqCjUb1_c7628ciDffewZRKGCrVXJP8cfBczVs4qXTwUziPd7K7UmSEL7Nr5VKgnEdFuMTeJWPrvoa7FDOCF0uopGsx5yPQoIT2MoZBFjr3KzWOKpHeZxHmKgCO7TMMcjafzgN2dCjbQFA=w1105-h422-no?authuser=0)
+# AirBnB Description
 
-This repository contains our own simple version of the `shell`, that is a command interpreter to read, write, execute files or programs, using command in a terminal, for more context read [linux command](https://linuxcommand.org/lc3_lts0010.php)
+This repository contains our own simple version of the `arbnb`, this is an application to search and filter  interpreter
 
 ##  Example
 
 Iteractive mode:
- - Execute the `simple_shell` file, then you will be inside the minishell
+ - Execute the `console.py` file this way `./console.py` then you will be inside the consol command interpreter.
 
-       $ ./simple_shell
-       ¥ minishell ¶:
-       ¥ minishell ¶: ls
-        built-in.c header.h ctrl_c.c minishell.c splits_string.c
-        exec.c sfree.c string_directory.c 
-       ¥ minishell ¶: /bin/ls
-        built-in.c header.h ctrl_c.c minishell.c splits_string.c
-        exec.c sfree.c string_directory.c 
+       AirBnB_clone$ ./console.py
+       (hbnb)help
+       
+       Documented commands (type help <topic>):
+       ========================================
+       EOF  all  create  destroy  help  quit  show  update
+       
+       (hbnb)create BaseModel
+       79b0ea7a-cbb2-469c-b70a-607d21df4c66
+       (hbnb)all
+       (hbnb)
+       ["[BaseModel] (79b0ea7a-cbb2-469c-b70a-607d21df4c66) 
+       {'created_at': datetime.datetime(2021, 2, 17, 21, 23, 11), 
+       'id': '79b0ea7a-cbb2-469c-b70a-607d21df4c66',
+       'updated_at': datetime.datetime(2021, 2, 17, 21, 23, 11)
+        }"]
+       (hbnb)destroy BaseModel 79b0ea7a-cbb2-469c-b70a-607d21df4c66 
+       (hbnb)all
+       []
+       (hbnb)show BaseModel 79b0ea7a-cbb2-469c-b70a-607d21df4c66
+       ** no instance found **
+       (hbnb)
 
 Non/interactive
- - Write `echo` and between doble quotes `" "` put the command to execute and after the pipeline `|` execute the `simple_shell` file
+ - Write `echo` and between doble quotes `" "` put the command to execute and after the pipeline `|` execute the `console` file
 
-    `$ echo "ls" | ./simple_shell` 
-   ` ¥ minishell ¶:`
-`built-in.c header.h ctrl_c.c minishell.c splits_string.c
-exec.c sfree.c string_directory.c`
+```
+AirBnB_clone$ echo "help" | ./console.py
+(hbnb)
 
-# Flowchart
-(image here)
+Documented commands (type help <topic>):
+========================================
+EOF  help  quit
+(hbnb)
+AirBnB_clone$
+```
 
 # Files
 
  - **README** : It contains all the information about the project and
    all its content. 
- - **header.h** : It is the header file you can find all the libraries that we use to create this program, also all the prototypes of the functions that we create to navigate and run the `shell`
- - **shell.c** : This is the main program to start the infinity loop of the simple_shell, it contains the SIGNAL to campture the `ctrl + c`, it evaluate if the entry command is a built-in, a program or just a non existent value.
- - **strfunctions.c** : Contains the function to create copies of a string, copare it or divided by tokens.
- - **advstr.c** : Have functions to divide an entry string or the PATH depends of the entry argument.
- - **executable.c** : In this file you can find the executable fucntions from the shell like fork process, print the enviroment or concatenate the PATH.
- -  **extra.c** : There are the final functions like convert a integers into a string, handle error in the prompt and a function to free memory from a double pointer string.
- - **man_1_simple_shell.1.gz** : This is the manual that contains the synopsis, description, return, and more  specifiers of the simple_shell that we create.
+ - **console.py** : 
+ - **models/** :
+	 - **base_model.py**: 
+	 - **user.py**:  
+	 - **state.py** : 
+	 - **city.py** : 
+	 - **amenity.py** : 
+	 -  **place.py** : 
+	 - **review.py** : 
 
+- **test/** :
+	- **test_models/** :
+		- **test_base_model.py**:  
+		 - **test_user.py**: 
+		 - **test_state.py** : 
+		 - **test_city.py** : 
+		 - **test_amenity.py** : 
+		 -  **test_place.py** :  
+		 - **test_review.py** : 
 
-##  To compile
+	- **test_engine/** :
+		- **test_file_storage.py** : 
 
-    $ gcc -Wall -Werror -Wextra -pedantic header.h *.c -o minishell
+## Execute tests
 
-## More info for execute
-
-    valgrind --leak-check=full --show-leak-kinds=all ./minishell
+    AirBnB_clone$ python3 -m unittest discover tests
+    ...................................
+    --------------------------------------------------
+    Ran 35 tests in 0.078s
+    
+    OK
+    AirBnB_clone$
 
 ##  Requirements
 
- - Ubuntu 16.04.7 LTS
- - Functions and files will be compiled with gcc 4.8.4
-   with flags 
-   
- - All the files must have [Betty](https://github.com/holbertonschool/Betty/wiki) style
+ - *Ubuntu 16.04.7 LTS*
+ - *Python 3.5.2*
+ - All the files must have *[pep8](https://github.com/treyhunner/pep8)* style
 
-
-## Author
+## Authors
  
- - **Juan Carlos Hernandez** : [@luigi_jong](https://twitter.com/luigi_jong)
+ - **Juan Carlos Hernández** : Twitter - [@luigi_jong](https://twitter.com/luigi_jong)
+ - **Andres Sotelo Duran** :  Twitter - [@looperdesignco](https://twitter.com/looperdesignco)
 
 ##  info
 
- - Date (DD/MM/YYYY)
+ - Date 17/02/2021)
  - Holberton school Colombia 
  - Cohort #13 BOG0920
