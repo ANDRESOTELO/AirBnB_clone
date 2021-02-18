@@ -172,6 +172,29 @@ or updating attribute
                 print("** class doesn't exist **")
         except ValueError:
             print("*** Unknown syntax: {}".format(args))
+
+    def default(self, line):
+        """Method called on an input line when the
+command prefix is not recognized.
+        """
+        data = storage.all()
+        list_instances = []
+        args = line.split(".")
+        if len(args) > 1:
+            if args[0] in class_name:
+                if args[1] == "all()":
+                    for key, value in data.items():
+                        key_split = key.split(".")
+                        if key_split[0] == args[0]:
+                            list_instances.append(str(value))
+                    print(list_instances)
+                else:
+                    pass
+            else:
+                pass
+        else:
+            pass
+
 if __name__ == "__main__":
     """
     To execute program like a main
