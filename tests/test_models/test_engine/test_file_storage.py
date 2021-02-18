@@ -15,6 +15,11 @@ import inspect
 from datetime import datetime
 from models.engine.file_storage import FileStorage
 from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 import os
 
 
@@ -202,6 +207,66 @@ class TestFileStorage2(unittest.TestCase):
         """
         all_objects = storage.all()
         my_model = BaseModel()
+        storage.new(my_model)
+        key = "{}.{}".format(my_model.__class__.__name__, my_model.id)
+        self.assertIn(key, all_objects.keys())
+
+    def test_usermodel(self):
+        """
+        Test that checks instance UserModel creation
+        """
+        all_objects = storage.all()
+        my_model = User()
+        storage.new(my_model)
+        key = "{}.{}".format(my_model.__class__.__name__, my_model.id)
+        self.assertIn(key, all_objects.keys())
+
+    def test_statemodel(self):
+        """
+        Test that checks instance State Model creation
+        """
+        all_objects = storage.all()
+        my_model = State()
+        storage.new(my_model)
+        key = "{}.{}".format(my_model.__class__.__name__, my_model.id)
+        self.assertIn(key, all_objects.keys())
+
+    def test_placemodel(self):
+        """
+        Test that checks instance Place Model creation
+        """
+        all_objects = storage.all()
+        my_model = Place()
+        storage.new(my_model)
+        key = "{}.{}".format(my_model.__class__.__name__, my_model.id)
+        self.assertIn(key, all_objects.keys())
+
+    def test_citymodel(self):
+        """
+        Test that checks instance City Model creation
+        """
+        all_objects = storage.all()
+        my_model = City()
+        storage.new(my_model)
+        key = "{}.{}".format(my_model.__class__.__name__, my_model.id)
+        self.assertIn(key, all_objects.keys())
+
+    def test_amenitymodel(self):
+        """
+        Test that checks instance Amenity Model creation
+        """
+        all_objects = storage.all()
+        my_model = Amenity()
+        storage.new(my_model)
+        key = "{}.{}".format(my_model.__class__.__name__, my_model.id)
+        self.assertIn(key, all_objects.keys())
+
+    def test_reviewmodel(self):
+        """
+        Test that checks instance Reiew model creation
+        """
+        all_objects = storage.all()
+        my_model = Review()
         storage.new(my_model)
         key = "{}.{}".format(my_model.__class__.__name__, my_model.id)
         self.assertIn(key, all_objects.keys())
