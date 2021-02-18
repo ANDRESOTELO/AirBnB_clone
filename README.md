@@ -1,7 +1,7 @@
 ![AirBnB](https://scontent.fbog2-2.fna.fbcdn.net/v/t1.0-9/151832876_10159252478228035_253539761794129848_o.jpg?_nc_cat=108&ccb=3&_nc_sid=730e14&_nc_eui2=AeEPCNdSL01DbLQIxvpkL-4eo6NOw32cMBujo07DfZwwG7xJiHFqVvB7sAK7733hs9s&_nc_ohc=pY7DkoTU_qgAX9Xtlff&_nc_ht=scontent.fbog2-2.fna&oh=a26132b856bde0285ab3ab6226148d02&oe=60549DB5)
 # AirBnB Description
 
-This repository contains our own simple version of the `arbnb`, this is an application to search and filter  interpreter
+This repository contains our own simple version of `arbnb`, this is an application to search for records, filter them or create new users, here you will find an executable console in which you can execute different commands and save your information in a `json` file to later update a data base.
 
 ##  Example
 
@@ -44,33 +44,46 @@ EOF  help  quit
 (hbnb)
 AirBnB_clone$
 ```
-
+## Commands for interactive mode
+***help***: Display  all available commands in the console.
+***help***<'command'>: Show what the command does.
+***create***  *<'Class_name'>* : Create a new instance of the class.
+***show*** *<'Class_name'> <'id'>* : Display the specified instance. 
+***all***: Display all the instances there are created.
+***all*** *<'Class_name'>* : Display only matches instances.
+***update*** *<'Class_name'><'id'><'attribute'><'value'>*: Modify the especified instance with the attribute as a key and the value.
+***destroy*** *<'Class_name'><'id'>*: Delete the especified instance.
+***quit***: Close the command interpreter.
+***ctrl + d***: Signal to close the console. 
+ 
 # Files
 
- - **README** : It contains all the information about the project and
-   all its content. 
- - **console.py** : 
- - **models/** :
-	 - **base_model.py**: 
-	 - **user.py**:  
-	 - **state.py** : 
-	 - **city.py** : 
-	 - **amenity.py** : 
-	 -  **place.py** : 
-	 - **review.py** : 
+ - **README** 
+ - **console.py** 
+ - **models/** 
+	 - **base_model.py**
+	 - **user.py**
+	 - **state.py** 
+	 - **city.py** 
+	 - **amenity.py** 
+	 -  **place.py** 
+	 - **review.py** 
 
-- **test/** :
-	- **test_models/** :
-		- **test_base_model.py**:  
-		 - **test_user.py**: 
-		 - **test_state.py** : 
-		 - **test_city.py** : 
-		 - **test_amenity.py** : 
-		 -  **test_place.py** :  
-		 - **test_review.py** : 
+- **test/** 
+	- **test_models/** 
+		- **test_base_model.py**
+		 - **test_user.py**
+		 - **test_state.py** 
+		 - **test_city.py** 
+		 - **test_amenity.py** 
+		 -  **test_place.py** 
+		 - **test_review.py** 
 
 	- **test_engine/** :
 		- **test_file_storage.py** : 
+
+## Flowchart
+![enter image description here](https://media.discordapp.net/attachments/756643698447613992/811984924407234570/Flowchart.png?width=491&height=473)
 
 ## Execute tests
 
