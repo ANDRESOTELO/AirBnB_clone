@@ -14,6 +14,7 @@ import pep8
 import inspect
 from datetime import datetime
 from models.engine.file_storage import FileStorage
+from models.user import User
 import os
 
 
@@ -94,6 +95,19 @@ class TestFileStorage(unittest.TestCase):
         Testing the new method
         """
         my_model = BaseModel()
+        my_model.save()
+        all_objs = storage.all()
+        obj_key = my_model.__class__.__name__ + '.' + my_model.id
+        self.assertEqual(all_objs[obj_key], my_model)
+        self.assertEqual(obj_key in all_objs, True)
+        obj = {obj_key: my_model}
+        self.assertEqual(obj, all_objs)
+
+    def test_User_ins(self):
+        """
+        Testing the User instance
+        """
+        my_model = User()
         my_model.save()
         all_objs = storage.all()
         obj_key = my_model.__class__.__name__ + '.' + my_model.id
