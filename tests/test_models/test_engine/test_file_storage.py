@@ -58,12 +58,26 @@ class TestFileStorage(unittest.TestCase):
         """
         self.assertIsNotNone(FileStorage.__doc__)
 
+    def test_a(self):
+        """
+        Test that checks __objects
+        """
+        objects_attribute = FileStorage._FileStorage__objects
+        self.assertEqual(type(objects_attribute), dict)
+
     def test_storage(self):
         """
         Test that checks if storage is instance of FileStorage
         """
         storage = FileStorage()
         self.assertIsInstance(storage, FileStorage)
+
+    def test_storage_2(self):
+        """
+        Test that checks if storage have error
+        """
+        with self.assertRaises(TypeError):
+            all_objs = storage.all(None)
 
     def test_all_method(self):
         """
@@ -166,16 +180,6 @@ class TestFileStorage(unittest.TestCase):
         my_model.save()
         json_object = storage.all()
 
-    def tearDown(self):
-        """
-        Method to reset test and remove file.json
-        """
-        FileStorage._FileStorage__objects = {}
-        try:
-            delete("file.json")
-        except:
-            pass
-
     def test_kwargs(self):
         """
         Test to check reload function
@@ -186,3 +190,28 @@ class TestFileStorage(unittest.TestCase):
         my_model_json = my_model.to_dict()
         my_new_model = BaseModel(**my_model_json)
         self.assertIsNot(my_model, my_new_model)
+
+
+class TestFileStorage2(unittest.TestCase):
+    """
+    Define TestFileStorage2 class
+    """
+    def test_basemodel(self):
+        """
+        Test that checks instance BaseModel creation
+        """
+        all_objects = storage.all()
+        my_model = BaseModel()
+        storage.new(my_model)
+        key = "{}.{}".format(my_model.__class__.__name__, my_model.id)
+        self.assertIn(key, all_objects.keys())
+
+    def tearDown(self):
+        """
+        Method to reset test and remove file.json
+        """
+        FileStorage._FileStorage__objects = {}
+        try:
+            delete("file.json")
+        except:
+            pass
