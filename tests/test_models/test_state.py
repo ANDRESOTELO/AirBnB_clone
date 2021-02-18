@@ -1,47 +1,40 @@
 #!/usr/bin/python3
 """
-Unittest for base_model.py module
+Unittest for state module
 """
 
-from os import remove as delete
-import models
-import uuid
-from models.base_model import BaseModel
 import unittest
-import pep8
 import inspect
-from models.base_model import BaseModel, __doc__
+from models import state
+from models.base_model import BaseModel
+import os
 from datetime import datetime
+from models.engine.file_storage import FileStorage
+import pep8
+State = state.State
 
 
-class TestBaseModel(unittest.TestCase):
+class TestState(unittest.TestCase):
     """
-    Define TestBaseModel class
+    Define TestCity state
     """
     def setUp(self):
         """
         Method to init test and remove file.json
         """
+        FileStorage._FileStorage__objects = {}
         try:
             delete("file.json")
         except:
             pass
 
-    def test_pep8_BaseModel(self):
+    def test_pep8(self):
         """
-        Test that checks pep8 implementation
+        Test that checks pep8 implementation in test_state file
         """
+        path = "tests/test_models/test_state.py"
         style = pep8.StyleGuide(quiet=True)
-        check = style.check_files(['models/base_model.py'])
-        self.assertEqual(check.total_errors, 0,
-                         "PEP8 style errors: {:d}".format(check.total_errors))
-
-    def test_pep8_test_BaseModel(self):
-        """
-        Test that checks pep8 implementation in test_base file
-        """
-        style = pep8.StyleGuide(quiet=True)
-        check = style.check_files(['tests/test_models/test_base_model.py'])
+        check = style.check_files([path])
         self.assertEqual(check.total_errors, 0,
                          "PEP8 style errors: {:d}".format(check.total_errors))
 
@@ -49,104 +42,46 @@ class TestBaseModel(unittest.TestCase):
         """
         Test docstring
         """
-        self.assertIsNotNone(BaseModel.__doc__)
+        self.assertIsNotNone(FileStorage.__doc__)
 
-    def test_create_instance(self):
+    def test_subclass(self):
         """
-        Test that checks correct creation of instance
-        checking correct id instance and specific id too.
+        Test that checks if is subclass of BaseModel
         """
-        my_model = BaseModel()
-        self.assertIsInstance(my_model, BaseModel,
-                              "Object isn´t an instance of class")
+        my_model = State()
+        self.assertIsInstance(my_model, BaseModel)
 
-    def test_model_json(self):
+    def test_has_attrs(self):
         """
-        Test that checks if method to_dict creates a dictionary
+        Test that checks if object has attributes
         """
-        my_model = BaseModel()
-        my_model.name = "Holberton"
-        my_model.save()
-        my_model_json = my_model.to_dict()
-        self.assertTrue(type(my_model_json), "<class 'dict'>")
+        my_model = State()
+        self.assertTrue(hasattr(my_model, "id"))
+        self.assertTrue(hasattr(my_model, "updated_at"))
+        self.assertTrue(hasattr(my_model, "created_at"))
 
-    def test_save_method(self):
+    def test_name(self):
         """
-        Test that save method updates the updated_at variable
+        Test that checks if has attribute
         """
-        my_model = BaseModel()
-        up1 = my_model.updated_at
-        my_model.name = "Holberton"
-        my_model.save()
-        up2 = my_model.updated_at
-        self.assertNotEqual(up1, up2)
+        my_model = State()
+        self.assertTrue(hasattr(my_model, "name"))
+        self.assertEqual(my_model.name, "")
 
-    def test_uuid(self):
+    def test_str_method(self):
         """
-        Test that checks if two instances have different id
+        Test str method
         """
-        my_model = BaseModel()
-        my_model_id = my_model.id
-        my_new_model = BaseModel()
-        my_new_model_id = my_new_model.id
-        self.assertNotEqual(my_model_id, my_new_model_id)
-
-    def test_attributes(self):
-        """
-        Test that checks correct set value
-        """
-        my_model = BaseModel()
-        my_model.name = "Holberton"
-        my_model.number = 89
-        self.assertEqual(my_model.name, "Holberton")
-        self.assertEqual(my_model.number, 89)
-
-    def test_str(self):
-        """
-        Test that __str__ have correct output
-        """
-        my_model = BaseModel()
-        str_format = "[BaseModel] ({}) {}".format(my_model.id,
-                                                  my_model.__dict__)
+        my_model = State()
+        str_format = "[{}] ({}) {}".format(my_model.__class__.__name__,
+                                           my_model.id, my_model.__dict__)
         self.assertEqual(str_format, str(my_model))
 
-    def test_instance(self):
+    def test_to_dict(self):
         """
-        Test correct instance
+        Test that checks if dict model to json is created
         """
-        my_model = BaseModel()
-        my_model.name = "Holberton"
-        my_model.number = 89
-        self.assertEqual(my_model.__class__.__name__, "BaseModel")
-        self.assertEqual(type(my_model), BaseModel)
-        self.assertEqual(my_model.name, "Holberton")
-        self.assertEqual(my_model.number, 89)
-
-    def test_check_datetime(self):
-        """
-        doce
-        """
-        my_model = BaseModel()
-        datetime_class = "<class 'datetime.datetime'>"
-        self.assertTrue(type(my_model.created_at), datetime_class)
-        self.assertTrue(type(my_model.updated_at), datetime_class)
-        self.assertTrue(type(my_model.id), "<class 'str'>")
-
-    def test_version_uuid(self):
-        """
-        Test that checks for the uuid version
-        """
-        my_model = BaseModel()
-        version_uuid = uuid.UUID(my_model.id).version
-        self.assertEqual(version_uuid, 4)
-
-    def test_class_in_dict(self):
-        """
-        Test that checks if __class__ is in model to json
-        """
-        my_model = BaseModel()
-        my_model.name = "Holberton"
-        my_model.save()
+        my_model = State()
         my_model_json = my_model.to_dict()
         self.assertEqual("__class__" in my_model_json, True)
 
@@ -154,6 +89,7 @@ class TestBaseModel(unittest.TestCase):
         """
         Method to reset test and remove file.json
         """
+        FileStorage._FileStorage__objects = {}
         try:
             delete("file.json")
         except:
