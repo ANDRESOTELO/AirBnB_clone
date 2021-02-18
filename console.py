@@ -180,6 +180,7 @@ command prefix is not recognized.
         data = storage.all()
         list_instances = []
         args = line.split(".")
+        count = 0
         if len(args) > 1:
             if args[0] in class_name:
                 if args[1] == "all()":
@@ -188,6 +189,12 @@ command prefix is not recognized.
                         if key_split[0] == args[0]:
                             list_instances.append(str(value))
                     print(list_instances)
+                elif args[1] == "count()":
+                    for key, value in data.items():
+                        key_split = key.split(".")
+                        if key_split[0] == args[0]:
+                            count += 1
+                    print(count)
                 else:
                     pass
             else:
