@@ -164,6 +164,8 @@ or updating attribute
                                 storage.save()
                             else:
                                 pass
+                    else:
+                        print("** no instance found **")
                 else:
                     print("** instance id missing **")
             else:
