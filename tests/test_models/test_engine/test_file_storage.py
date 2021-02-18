@@ -57,6 +57,13 @@ class TestFileStorage(unittest.TestCase):
         """
         self.assertIsNotNone(FileStorage.__doc__)
 
+    def test_storage(self):
+        """
+        Test that checks if storage is instance of FileStorage
+        """
+        storage = FileStorage()
+        self.assertIsInstance(storage, FileStorage)
+
     def test_all_method(self):
         """
         Test if storage all method works
@@ -89,7 +96,6 @@ class TestFileStorage(unittest.TestCase):
         my_model = BaseModel()
         my_model.save()
         all_objs = storage.all()
-
         obj_key = my_model.__class__.__name__ + '.' + my_model.id
         self.assertEqual(all_objs[obj_key], my_model)
         self.assertEqual(obj_key in all_objs, True)
@@ -104,6 +110,29 @@ class TestFileStorage(unittest.TestCase):
         my_model.save()
         here = os.path.exists('file.json')
         self.assertEqual(here, True)
+
+    def test_save_method(self):
+        """
+        Test that checks save method
+        """
+        filename = "file.json"
+        my_model = BaseModel()
+        key = "{}.{}".format(my_model.__class__.__name__, my_model.id)
+        storage.new(my_model)
+        storage.save()
+        self.assertTrue(os.path.exists(filename))
+        with open(filename) as f:
+            obj = json.load(f)
+            self.assertEqual(my_model.id, obj[key]["id"])
+            self.assertEqual(my_model.__class__.__name__,
+                             obj[key]["__class__"])
+        FileStorage._FileStorage__objects = {}
+        storage.reload()
+        all_obj = storage.all()
+        self.assertEqual(my_model.id, all_obj[key].id)
+        self.assertEqual(my_model.__class__, all_obj[key].__class__)
+        self.assertEqual(my_model.created_at, all_obj[key].created_at)
+        self.assertEqual(my_model.updated_at, all_obj[key].updated_at)
 
     def test_file_empty(self):
         """
