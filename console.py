@@ -139,35 +139,37 @@ or updating attribute
         args = split(line)
         data = storage.all()
 
-        if len(line) < 1:
-            print("** class name missing **")
-        elif args[0] in class_name:
-            if len(args) == 2:
-                key = args[0] + "." + args[1]
-                if key in data:
-                    print("** attribute name missing **")
+        try:
+            if len(line) < 1:
+                print("** class name missing **")
+            elif args[0] in class_name:
+                if len(args) == 2:
+                    key = args[0] + "." + args[1]
+                    if key in data:
+                        print("** attribute name missing **")
+                    else:
+                        print("** no instance found **")
+                elif len(args) == 3:
+                    key = args[0] + "." + args[1]
+                    if key in data:
+                        print("** value missing **")
+                    else:
+                        print("** no instance found **")
+                elif len(args) >= 4:
+                    key = args[0] + "." + args[1]
+                    if key in data:
+                        for key, value in data.items():
+                            if args[2] not in not_to_update:
+                                setattr(value, args[2], args[3])
+                                storage.save()
+                            else:
+                                pass
                 else:
-                    print("** no instance found **")
-            elif len(args) == 3:
-                key = args[0] + "." + args[1]
-                if key in data:
-                    print("** value missing **")
-                else:
-                    print("** no instance found **")
-            elif len(args) >= 4:
-                key = args[0] + "." + args[1]
-                if key in data:
-                    for key, value in data.items():
-                        if args[2] not in not_to_update:
-                            setattr(value, args[2], args[3])
-                            storage.save()
-                        else:
-                            pass
+                    print("** instance id missing **")
             else:
-                print("** instance id missing **")
-        else:
-            print("** class doesn't exist **")
-
+                print("** class doesn't exist **")
+        except ValueError:
+            print("*** Unknown syntax: {}".format(args))
 if __name__ == "__main__":
     """
     To execute program like a main
