@@ -189,6 +189,7 @@ command prefix is not recognized.
                         if key_split[0] == args[0]:
                             list_instances.append(str(value))
                     print(list_instances)
+                # -----------------------------------------
                 elif args[1] == "count()":
                     for key, value in data.items():
                         key_split = key.split(".")
@@ -197,10 +198,18 @@ command prefix is not recognized.
                     print(count)
                 else:
                     pass
-            else:
-                pass
-        else:
-            pass
+                # -----------------------------------------
+            obj_id = args[1].split("(")
+            if args[0] in class_name:
+                if obj_id[0] == "show":
+                    for key, value in data.items():
+                        key_split = key.split(".")
+                        if obj_id[1][1:-2] in key_split:
+                            print(value)
+                            pass
+                else:
+                    pass
+
 
 if __name__ == "__main__":
     """
