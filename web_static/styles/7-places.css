@@ -1,0 +1,35 @@
+.places {
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/*flex and wrap property*/
+.places div {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.places h1 {
+    font-size: 30px;
+    margin-top: 30px;
+    margin-left: 15px;
+
+}
+
+.places article {
+    width: 390px;
+    border: 1px #FF5A5F solid;
+    border-radius: 4px;
+    margin: 20px;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.places h2 {
+    font-size: 30px;
+    margin-bottom: 5%;
+}
